@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alae 11.11</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: one calm column on a night sky. A four-bar 11:11 mark, her name large, a live count of days together, eleven things, then a wish box. */
+:root {
+  --bg: #fbf1ee;
+  --bg-soft: #f4e2dd;
+  --fg: #3a1d2b;
+  --muted: #7d5a68;
+  --rose: #c2415f;
+  --gold: #b5832e;
+  --line: #e6cdc8;
+  --card: #fff8f6;
+  --star: #c2415f;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b0f1f; --bg-soft: #2a1730; --fg: #f6e7e4; --muted: #c4a5b0;
+    --rose: #ee7b94; --gold: #e8c27a; --line: #43284a; --card: #26142b; --star: #f3d896;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b0f1f; --bg-soft: #2a1730; --fg: #f6e7e4; --muted: #c4a5b0;
+  --rose: #ee7b94; --gold: #e8c27a; --line: #43284a; --card: #26142b; --star: #f3d896;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(60% 40% at 80% 0%, color-mix(in srgb, var(--rose) 18%, transparent), transparent 70%),
+    radial-gradient(50% 35% at 5% 30%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+#stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+#stars i {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: var(--star); opacity: .35;
+  animation: twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100% { opacity: .15; } 50% { opacity: .7; } }
+
+main { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; display: grid; gap: 64px; }
+
+.hero { display: grid; gap: 18px; justify-items: start; padding-top: 12px; }
+.mark { width: 112px; height: auto; display: block; }
+.mark rect { fill: var(--rose); }
+.mark rect.g { fill: var(--gold); }
+.eyebrow {
+  font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 300; font-style: italic;
+  font-size: clamp(76px, 24vw, 148px);
+  line-height: .92; letter-spacing: -.02em; margin: 0; color: var(--fg);
+}
+h1 span { color: var(--rose); }
+.lede {
+  font-family: var(--font-display); font-weight: 300; font-size: clamp(21px, 5vw, 26px);
+  line-height: 1.4; margin: 0; max-width: 28ch; text-wrap: balance;
+}
+
+h2 {
+  font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 7vw, 38px);
+  line-height: 1.15; margin: 0 0 8px; text-wrap: balance;
+}
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 46ch; }
+
+.count { display: grid; gap: 20px; }
+.days {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 22px;
+}
+.days b {
+  font-family: var(--font-display); font-weight: 300; font-size: clamp(64px, 20vw, 104px);
+  line-height: 1; color: var(--rose); font-variant-numeric: tabular-nums;
+}
+.days span { color: var(--muted); font-size: 15px; }
+.breakdown { display: flex; gap: 28px; flex-wrap: wrap; margin: 0; }
+.breakdown div { display: grid; }
+.breakdown dt { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); order: 2; }
+.breakdown dd { margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+ol.eleven { list-style: none; margin: 0; padding: 0; display: grid; }
+ol.eleven li {
+  display: grid; grid-template-columns: 3.2ch 1fr; gap: 14px; align-items: baseline;
+  padding-block: 14px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-display); font-weight: 300; font-size: clamp(20px, 5vw, 24px); line-height: 1.3;
+}
+ol.eleven li:first-child { border-top: 1px solid var(--line); }
+ol.eleven li em { font-family: var(--font-body); font-style: normal; font-size: 13px; color: var(--gold); font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+
+.wish {
+  background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+  padding: clamp(20px, 5vw, 32px); display: grid; gap: 16px;
+}
+.wish h2 { margin: 0; }
+.wish p { margin: 0; color: var(--muted); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row input {
+  flex: 1 1 220px; min-width: 0; font: inherit; color: var(--fg); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px;
+}
+.row input::placeholder { color: var(--muted); opacity: .8; }
+button {
+  font: inherit; font-weight: 500; cursor: pointer; color: #fff; background: var(--rose);
+  border: 0; border-radius: 12px; padding: 13px 20px;
+}
+:root[data-theme="dark"] button { color: #2a1022; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) button { color: #2a1022; } }
+button:hover { filter: brightness(1.06); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.sky { position: relative; min-height: 120px; border-radius: 14px; background: var(--bg-soft); overflow: hidden; }
+.sky .hint { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; padding: 12px; text-align: center; }
+.wishstar {
+  position: absolute; display: grid; justify-items: center; gap: 4px; max-width: 46%;
+  animation: rise 1.6s cubic-bezier(.2,.7,.2,1) both;
+}
+.wishstar i { width: 10px; height: 10px; background: var(--star); transform: rotate(45deg); box-shadow: 0 0 14px 3px color-mix(in srgb, var(--star) 55%, transparent); }
+.wishstar span { font-family: var(--font-display); font-style: italic; font-size: 14px; text-align: center; overflow-wrap: anywhere; }
+@keyframes rise { from { transform: translateY(110px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+footer { text-align: left; font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: 22px; color: var(--muted); }
+footer b { color: var(--rose); font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  #stars i, .wishstar { animation: none; }
+}
+</style>
+</head>
+<body>
+<div id="stars" aria-hidden="true"></div>
+
+<main>
+  <header class="hero">
+    <svg class="mark" viewBox="0 0 112 56" role="img" aria-label="11:11">
+      <rect x="6" y="0" width="8" height="56" rx="4"/>
+      <rect x="30" y="0" width="8" height="56" rx="4"/>
+      <rect class="g" x="74" y="0" width="8" height="56" rx="4"/>
+      <rect class="g" x="98" y="0" width="8" height="56" rx="4"/>
+    </svg>
+    <p class="eyebrow">November 11 · 11.11</p>
+    <h1>Alae<span>.</span></h1>
+    <p class="lede">Today is yours. Every one of those four ones is a wish with your name on it.</p>
+  </header>
+
+  <section class="count" aria-labelledby="t-count">
+    <div>
+      <h2 id="t-count">Since October 8, 2025</h2>
+      <p class="sub">The days keep adding up, and I would pick every one of them again.</p>
+    </div>
+    <div class="days"><b id="d-total">0</b><span>days with you</span></div>
+    <dl class="breakdown">
+      <div><dd id="d-y">0</dd><dt>years</dt></div>
+      <div><dd id="d-m">0</dd><dt>months</dt></div>
+      <div><dd id="d-d">0</dd><dt>days</dt></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="t-eleven">
+    <h2 id="t-eleven">Eleven things I love about you</h2>
+    <p class="sub">One for each one on the date.</p>
+    <ol class="eleven">
+      <li><em>01</em>Your laugh, the real one</li>
+      <li><em>02</em>How you make an ordinary day feel chosen</li>
+      <li><em>03</em>The way you care about people</li>
+      <li><em>04</em>Your face when you are thinking</li>
+      <li><em>05</em>How safe I feel next to you</li>
+      <li><em>06</em>Your stubborn, beautiful opinions</li>
+      <li><em>07</em>The small things you notice</li>
+      <li><em>08</em>How easy it is to be quiet with you</li>
+      <li><em>09</em>Your kindness when nobody is watching</li>
+      <li><em>10</em>The way you say my name</li>
+      <li><em>11</em>That it is you, every time</li>
+    </ol>
+  </section>
+
+  <section class="wish" aria-labelledby="t-wish">
+    <h2 id="t-wish">Make a wish, Alae</h2>
+    <p>Write it down and send it up. On 11.11 the wishes count double.</p>
+    <form class="row" id="wishform">
+      <input id="wishtext" type="text" maxlength="60" placeholder="I wish for..." autocomplete="off" aria-label="Your wish">
+      <button type="submit">Send it up</button>
+    </form>
+    <div class="sky" id="sky"><div class="hint" id="hint">Your wishes will rise here.</div></div>
+  </section>
+
+  <footer>Happy 11.11, my love. <b>Alae</b>, you are my favorite number.</footer>
+</main>
+
+<script>
+(function () {
+  // Stars in the background
+  var s = document.getElementById('stars');
+  for (var i = 0; i < 46; i++) {
+    var d = document.createElement('i');
+    d.style.left = (Math.random() * 100) + '%';
+    d.style.top = (Math.random() * 100) + '%';
+    d.style.animationDelay = (Math.random() * 4) + 's';
+    d.style.animationDuration = (3 + Math.random() * 4) + 's';
+    var sz = 2 + Math.random() * 2.5;
+    d.style.width = d.style.height = sz + 'px';
+    s.appendChild(d);
+  }
+
+  // Time together since October 8, 2025
+  var start = new Date(2025, 9, 8);
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var total = Math.round((today - start) / 86400000);
+  var y = today.getFullYear() - start.getFullYear();
+  var m = today.getMonth() - start.getMonth();
+  var dd = today.getDate() - start.getDate();
+  if (dd < 0) { m -= 1; dd += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+  if (m < 0) { y -= 1; m += 12; }
+  document.getElementById('d-total').textContent = total.toLocaleString();
+  document.getElementById('d-y').textContent = y;
+  document.getElementById('d-m').textContent = m;
+  document.getElementById('d-d').textContent = dd;
+
+  // Wishes
+  var form = document.getElementById('wishform');
+  var input = document.getElementById('wishtext');
+  var sky = document.getElementById('sky');
+  var hint = document.getElementById('hint');
+  var slots = [[8, 12], [52, 20], [24, 58], [60, 62], [38, 34]];
+  var n = 0;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = input.value.trim();
+    if (!text) { input.focus(); return; }
+    if (hint) { hint.hidden = true; }
+    sky.style.minHeight = '200px';
+    var pos = slots[n % slots.length]; n++;
+    var el = document.createElement('div');
+    el.className = 'wishstar';
+    el.style.left = pos[0] + '%';
+    el.style.top = pos[1] + '%';
+    var star = document.createElement('i');
+    var label = document.createElement('span');
+    label.textContent = text;
+    el.appendChild(star); el.appendChild(label);
+    sky.appendChild(el);
+    input.value = '';
+    input.focus();
+  });
+})();
+</script>
+</body>
+</html>
